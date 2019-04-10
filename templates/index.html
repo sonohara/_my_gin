@@ -8,5 +8,15 @@
 </head>
 <body>
     <h1>Hello World!</h1>
+    <div>
+        {{range .todos}}
+        <ul>
+            <li>{{.Id}}</li>
+            <li>{{.Title}}</li>
+            <li>{{.Contents}}</li>
+            <li>{{.Due}}</li>
+        </ul>
+        {{end}}
+    </div>
 </body>
 </html>
