@@ -47,6 +47,24 @@ func main() {
 		})
 	})
 
+	r.POST("/", func(c *gin.Context) {
+		title := c.PostForm("title")
+		contents := c.PostForm("contents")
+
+		db, err := sql.Open("mysql", "root:@/_my_gin")
+		if err != nil {
+			panic(err.Error())
+		}
+		defer db.Close()
+
+		_, err = db.Exec("INSERT INTO todo(title, contents) VALUES(?, ?)", title, contents)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		c.Redirect(http.StatusMovedPermanently, "http://localhost:8080")
+	})
+
 	r.Run()
 }
 
