@@ -4,6 +4,8 @@ import (
 	"database/sql"
 	"net/http"
 
+	"github.com/sonohara/_my_gin/src/todo"
+
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -16,7 +18,7 @@ func main() {
 		})
 	})
 
-	r.LoadHTMLGlob("templates/*.html")
+	r.LoadHTMLGlob("src/templates/*.html")
 	r.GET("/", func(c *gin.Context) {
 		db, err := sql.Open("mysql", "root:@/_my_gin")
 		if err != nil {
@@ -30,9 +32,9 @@ func main() {
 		}
 		defer rows.Close()
 
-		var todos []todo
+		var todos []todo.Todo
 		for rows.Next() {
-			var todo todo
+			var todo todo.Todo
 			err = rows.Scan(&todo.Id, &todo.Title, &todo.Contents, &todo.Due)
 			if err != nil {
 				panic(err.Error())
@@ -66,11 +68,4 @@ func main() {
 	})
 
 	r.Run()
-}
-
-type todo struct {
-	Id       int
-	Title    string
-	Contents string
-	Due      string
 }
