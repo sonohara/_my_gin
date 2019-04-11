@@ -3,5 +3,6 @@
 dev
 
 ```sh
-$ realize start --server
+$ cd ./src
+$ fresh
 ```

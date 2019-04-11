@@ -14,11 +14,11 @@ func main() {
 	r := gin.Default()
 	r.GET("/ping", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "ponag",
+			"message": "pong",
 		})
 	})
 
-	r.LoadHTMLGlob("src/templates/*.html")
+	r.LoadHTMLGlob("templates/*.html")
 	r.GET("/", func(c *gin.Context) {
 		db, err := sql.Open("mysql", "root:@/_my_gin")
 		if err != nil {
